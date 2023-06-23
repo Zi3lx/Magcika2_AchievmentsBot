@@ -1,0 +1,90 @@
+import keyboard
+import pyautogui
+
+pyautogui.sleep(2)
+a = True
+
+
+def clickDieSpell():
+    pyautogui.typewrite('a')
+    pyautogui.typewrite('a')
+    pyautogui.typewrite('s')
+    pyautogui.typewrite('s')
+    pyautogui.typewrite('f')
+    pyautogui.middleClick()
+
+def revive():
+    pyautogui.typewrite('4')
+
+def skeletons():
+    pyautogui.typewrite('q')
+    pyautogui.typewrite('r')
+    pyautogui.typewrite('d')
+    pyautogui.typewrite('s')
+    pyautogui.typewrite('r')
+    pyautogui.press('space')
+
+def balls():
+    pyautogui.typewrite('w')
+    pyautogui.typewrite('w')
+    pyautogui.typewrite('w')
+    pyautogui.typewrite('w')
+    pyautogui.typewrite('e')
+    pyautogui.press('altleft')
+
+def killFriends():
+    pyautogui.typewrite('a')
+    pyautogui.typewrite('a')
+    pyautogui.typewrite('a')
+    pyautogui.typewrite('f')
+    pyautogui.typewrite('f')
+    pyautogui.keyDown('altleft')
+    pyautogui.sleep(1)
+    pyautogui.keyUp('altleft')
+
+count = 0
+
+while a:
+    pyautogui.sleep(0.5)
+    if keyboard.is_pressed('p'):
+        a = False
+    # Kill player
+    killFriends()
+    # Spawn and kill skeletons
+    for i in range(3):
+        balls()
+        pyautogui.sleep(1)
+        skeletons()
+        pyautogui.sleep(1)
+        balls()
+        pyautogui.sleep(1)
+    # Revive players
+    revive()
+    pyautogui.sleep(1)
+    revive()
+
+    # Kill main player
+    for i in range(3):
+        if i == 1:
+            killFriends()
+        clickDieSpell()
+        pyautogui.middleClick()
+
+    count += 1
+
+    # 160 is how many times you need to die * 2
+    if (count <= 160) and (count % 2 == 0):
+        pyautogui.sleep(2)
+        # you need to find coordinates for the Ponów button in game after death
+        pyautogui.moveTo(1834, 844)
+        pyautogui.click()
+        pyautogui.sleep(0.5)
+        pyautogui.press('space')
+
+    # Revive all player
+    pyautogui.sleep(5.5)
+
+
+#pyautogui.mouseInfo()
+
+#1834 844 spacja 5 sekund
